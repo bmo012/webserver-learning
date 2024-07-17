@@ -61,24 +61,11 @@ char *url_decode(const char *src) {
 }
 
 void build_http_response(const char *file_name, const char *file_ext,
-			char *response, size_t *response_len) {
+			char *response,
+			size_t *response_len) {
     // build HTTP header
     const char *mime_type = get_mime_type(file_ext);
-    char *header = (char *)malloc(BUFFER_SIZE * sizeof(char));
-    snprintf(header, BUFFER_SIZE, "HTTP/1.1 200 OK\r\n"
-	    "Content-Type: %s\r\n\r\n", mime_type);
 
-    // if file does not exist then respond with 404
-    int file_id = open(file_name, O_RDONLY);
-    if (file_fd == -1) {
-	snprintf(response, BUFFER_SIZE, "HTTP/1.1 404 Not Found\r\n"
-		"Content-Type: text/plain\r\n\r\n404 Not Found");
-	*response_len = strlen(response);
-	return;
-    }
-
-    // get file size for Content-Length
-    struct stat file_stat;
 }
 
 void *handle_client(void *arg) {
